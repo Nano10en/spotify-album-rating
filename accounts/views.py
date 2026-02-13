@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.utils import timezone
 from .models import SpotifyProfile
 
-from music.services.spotify import (
+from .services.spotify_oauth import (
     build_spotify_auth_url,
     exchange_code_for_token,
     get_current_user_profile,
