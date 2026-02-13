@@ -1,63 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'music/styles.css' %}">
     <title>Spotify Albums</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-            margin: 0;
-            padding: 20px;
-        }
-        .search-form {
-            margin-bottom: 20px;
-        }
-        .search-input {
-            padding: 10px;
-            width: 250px;
-            border-radius: 5px;
-            border: none;
-            font-size: 16px;
-        }
-        .search-button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #1db954;
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .albums {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px;
-        }
-        .album {
-            background: #1e1e1e;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            transition: transform 0.2s;
-        }
-        .album:hover {
-            transform: scale(1.05);
-        }
-        .album img {
-            width: 100%;
-            border-radius: 8px;
-        }
-        .album-title {
-            font-weight: bold;
-            margin: 10px 0 5px;
-        }
-        .album-artist {
-            color: #aaa;
-            font-size: 14px;
-        }
-    </style>
 </head>
 <body>
 
@@ -87,7 +36,7 @@
 
 <div class="albums">
     {% for album in albums %}
-        <div class="album">
+        <div class="album" onclick="window.location.href='{% url 'album_detail' album.id %}'">
             <img src="{{ album.images.0.url }}" alt="{{ album.name }}">
             <div class="album-title">{{ album.name }}</div>
             <div class="album-artist">

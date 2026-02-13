@@ -9,11 +9,9 @@ load_dotenv(BASE_DIR / ".env")
 
 CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
-REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
 
 TOKEN_URL = "https://accounts.spotify.com/api/token"
 BASE_API_URL = "https://api.spotify.com/v1"
-AUTH_URL = "https://accounts.spotify.com/authorize"
 
 #Получение тоекна из Spotify API
 def get_access_token():
@@ -69,3 +67,14 @@ def search_albums(query, limit=20, offset=0):
     )
     response.raise_for_status()
     return response.json()
+
+def get_album_details(album_id):
+    token = get_access_token()
+    resp = requests.get(
+        f"{BASE_API_URL}/albums/{album_id}",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    resp.raise_for_status()
+    return resp.json()
+
+
