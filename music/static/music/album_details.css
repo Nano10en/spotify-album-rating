@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Outfit", sans-serif;
+}
+
+body {
+    width: 100%;
+    font-weight: 400;
+    font-size: 18px;
+    background-color: #121212;
+    color: #fff;
+}
+
+.album {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.album div.album-info {
+    width: 30%;
+    margin: 20px;
+
+}
+
+.album div.album-info h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.album div.album-info p {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.album div.album-info img {
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 400px;
+    height: 400px;
+}
+
+.album div.album-info div {
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.album div.tracks {
+    width: 70%;
+    margin: 20px;
+}
+
+.album div.tracks p {
+    font-size: 1.2em;
+    border-bottom: 1px solid #fff;
+    padding: 15px;
+}

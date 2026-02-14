@@ -77,4 +77,11 @@ def get_album_details(album_id):
     resp.raise_for_status()
     return resp.json()
 
-
+def get_album_tracks(album_id):
+    token = get_access_token()
+    resp = requests.get(
+        f"{BASE_API_URL}/albums/{album_id}/tracks",
+        headers={"Authorization": f"Bearer {token}"}
+    )
+    resp.raise_for_status()
+    return resp.json()

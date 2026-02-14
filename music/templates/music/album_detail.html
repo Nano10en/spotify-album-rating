@@ -5,34 +5,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'music/album_details.css' %}">
     <title>{{ album.name }}</title>
 </head>
 <body>
-    <h1>{{ album.name }}</h1>
-    <p>Artist: {% for artist in album.artists %}
-                    {{ artist.name }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}</p>
-    <p>Release Date: {{ album.release_date }}</p>
-    <img src="{{ album.images.0.url }}" alt="{{ album.name }} Cover" width="300" height="300">
-
-    <form action="{% url 'create_comment' album.id %}" method="post">
-        {% csrf_token %}
-        <label for="rating">Rating: 1-10</label>
-        <input type="number" id="rating" name="rating" min="1" max="10" required>
-
-        <label for="comment">Comment:</label>
-        <input type="text" id="comment" name="comment" required>
-
-        <button type="submit">Submit Rating</button>
-    </form>
-
-    <h2>Comments</h2>
-    {% for comment in comments %}
-        <div>
-            <p><strong>{{ comment.author.spotifyprofile.display_name }}</strong>: {{ comment.content }} (Rating: {{ comment.rating }}/10)</p>
+    <div class="album">
+        <div class="album-info">
+            <h1>{{ album.name }}</h1>
+            <p>{% for artist in album.artists %}
+            {{ artist.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}</p>
+            <img src="{{ album.images.0.url }}" alt="{{ album.name }} Cover">
+            <div>
+                <span>Release Date: {{ album.release_date }}</span>
+                <span>Tracks: {{ tracks|length }}</span>
+            </div>
         </div>
-    {% empty %}
-        <p>No comments yet.</p>
-    {% endfor %}
+        <div class="tracks">
+            {% for track in tracks %}
+                <p>{{track.track_number}}. {{ track.name }}</p>
+                <form action="{% url 'create_track_comment' album.id track.id %}" method="post">
+                    {% csrf_token %}
+                    <label for="track_rating_{{ track.id }}">Rating: 1-10</label>
+                    <input type="number" id="track_rating_{{ track.id }}" name="rating" min="1" max="10" required>
+
+                    <label for="track_comment_{{ track.id }}">Comment:</label>
+                    <input type="text" id="track_comment_{{ track.id }}" name="comment" required>
+
+                    <button type="submit">Submit Rating</button>
+                </form>
+                {% for track_comment in tracks_comments %}
+                    {% if track_comment.track_id == track.id %}
+                        <div>
+                            <p><strong>{{ track_comment.author.spotifyprofile.display_name }}</strong>: {{ track_comment.content }} (Rating: {{ track_comment.rating }}/10)</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="review">
+        <form action="{% url 'create_comment' album.id %}" method="post">
+            {% csrf_token %}
+            <label for="rating">Rating: 1-10</label>
+            <input type="number" id="rating" name="rating" min="1" max="10" required>
+
+            <label for="comment">Comment:</label>
+            <input type="text" id="comment" name="comment" required>
+
+            <button type="submit">Submit Rating</button>
+        </form>
+    </div>
+    <div class="comments">
+        <h2>Comments</h2>
+        {% for comment in comments %}
+            <div>
+                <p><strong>{{ comment.author.spotifyprofile.display_name }}</strong>: {{ comment.content }} (Rating: {{ comment.rating }}/10)</p>
+            </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </div>
 </body>
 </html>
