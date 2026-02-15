@@ -23,23 +23,65 @@
             <div class="track-separator">
                 <form action="{% url 'create_track_comment' album.id track.id %}" method="post">
                     {% csrf_token %}
-                    <label for="track_rating_{{ track.id }}">Rating: 1-10</label>
-                    <input type="number" id="track_rating_{{ track.id }}" name="rating" min="1" max="10" required>
+                    <div class="review-section">
+                        <div class="star-wrapper">
+                            <input type="radio" name="rating" id="r10" value="10">
+                            <label for="r10" class="fa-regular fa-heart"></label>
 
-                    <label for="track_comment_{{ track.id }}">Comment:</label>
-                    <input type="text" id="track_comment_{{ track.id }}" name="comment" required>
+                            <input type="radio" name="rating" id="r9" value="9">
+                            <label for="r9" class="fa-regular fa-heart"></label>
 
-                    <button type="submit">Submit Rating</button>
-                </form>
-                {% for track_comment in tracks_comments %}
-                    {% if track_comment.track_id == track.id %}
-                        <div>
-                            <p><strong>{{ track_comment.author.spotifyprofile.display_name }}</strong>: {{ track_comment.content }} (Rating: {{ track_comment.rating }}/10)</p>
+                            <input type="radio" name="rating" id="r8" value="8">
+                            <label for="r8" class="fa-regular fa-heart"></label>
+
+                            <input type="radio" name="rating" id="r7" value="7">
+                            <label for="r7" class="fa-regular fa-heart"></label>
+
+                            <input type="radio" name="rating" id="r6" value="6">
+                            <label for="r6" class="fa-regular fa-heart"></label>
+
+                            <input type="radio" name="rating" id="r5" value="5">
+                            <label for="r5" class="fa-regular fa-heart"></label>
+
+                            <input type="radio" name="rating" id="r4" value="4">
+                            <label for="r4" class="fa-regular fa-heart"></label>
+
+                            <input type="radio" name="rating" id="r3" value="3">
+                            <label for="r3" class="fa-regular fa-heart"></label>
+
+                            <input type="radio" name="rating" id="r2" value="2">
+                            <label for="r2" class="fa-regular fa-heart"></label>
+
+                            <input type="radio" name="rating" id="r1" value="1">
+                            <label for="r1" class="fa-regular fa-heart"></label>
                         </div>
-                    {% endif %}
-                {% endfor %}
+                        <div class="comment-section">
+                            <label for="track_comment_{{ track.id }}">Comment</label>
+                            <textarea type="text" id="track_comment_{{ track.id }}" name="comment" required></textarea>
+                        </div>
+                        <div class="button-section">
+                            <button type="submit">Submit Rating</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="show-comment">
+                    {% for track_comment in tracks_comments %}
+                        {% if track_comment.track_id == track.id %}
+                            <div>
+                                <div class="author-rating">
+                                    {% if request.user.spotifyprofile.display_name != "" %}
+                                        <span>{{ request.user.spotifyprofile.display_name }}</span>
+                                    {% else %}
+                                        <span>{{ request.user.username }}</span>
+                                    {% endif %}
+                                    <span>Rating: {{ track_comment.rating }}/10</span>
+                                </div>
+                                <p>{{ track_comment.content }}</p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-            <hr style="border-bottom: 1px solid #333;">
             {% endfor %}
         </div>
     </div>
@@ -47,13 +89,27 @@
     <div class="review">
         <form action="{% url 'create_comment' album.id %}" method="post">
             {% csrf_token %}
-            <label for="rating">Rating: 1-10</label>
-            <input type="number" id="rating" name="rating" min="1" max="10" required>
-
-            <label for="comment">Comment:</label>
-            <input type="text" id="comment" name="comment" required>
-
-            <button type="submit">Submit Rating</button>
+            <div class="review-section">
+                <div class="star-wrapper">
+                    <a href="#" class="fas fa-star s1"></a>
+                    <a href="#" class="fas fa-star s2"></a>
+                    <a href="#" class="fas fa-star s3"></a>
+                    <a href="#" class="fas fa-star s4"></a>
+                    <a href="#" class="fas fa-star s5"></a>
+                    <a href="#" class="fas fa-star s6"></a>
+                    <a href="#" class="fas fa-star s7"></a>
+                    <a href="#" class="fas fa-star s8"></a>
+                    <a href="#" class="fas fa-star s9"></a>
+                    <a href="#" class="fas fa-star s10"></a>
+                </div>
+                <div class="comment-section">
+                    <label for="track_comment_{{ track.id }}">Comment</label>
+                    <textarea type="text" id="track_comment_{{ track.id }}" name="comment" required></textarea>
+                </div>
+                <div class="button-section">
+                    <button type="submit">Submit Rating</button>
+                </div>
+            </div>
         </form>
     </div>
     <div class="comments">

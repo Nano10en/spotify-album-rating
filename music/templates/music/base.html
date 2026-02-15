@@ -12,7 +12,7 @@
 <body>
     <header>
         <div>
-            <span>Spotify Album Rating</span>
+            <a class="logo" href="{% url "album_list" %}">Spotify Album Rating</a>
         </div>
         <div>
             {% if request.user.is_authenticated %}
@@ -32,6 +32,9 @@
     <main>
         {% block content %}{% endblock content %}
     </main>
+    <footer>
+        <p>&copy; 2026 Spotify Album Rating. All rights reserved.</p>
+    </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{% static 'music/index.js' %}"></script>
 </body>

@@ -35,6 +35,13 @@ header img {
     margin: 0 10px;
 
 }
+
+header a.logo {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+}
 .search-form {
     margin-bottom: 20px;
 }
@@ -105,6 +112,7 @@ main .album-artist {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: auto;
 }
 
 .album-details div.album-info {
@@ -146,20 +154,137 @@ main .album-artist {
     padding: 15px;
 }
 
-/* .album-details div.tracks .track-separator {
-    display: none;
-} */
-
 .album-details div.tracks .track-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px;
     transition: background-color 0.2s;
-    /* border-bottom: 1px solid #333; */
+    border-bottom: 1px solid #333;
 }
 
 .album-details div.tracks .track-info:hover {
     background-color: #333;
     cursor: pointer;
+}
+.star-wrapper {
+    direction: rtl;
+    display: inline-flex;
+    gap: 4px;
+    margin: 10px;
+}
+
+.star-wrapper input {
+    display: none;
+}
+
+.star-wrapper label {
+    font-size: 1.5em;
+    color: #fff;
+    cursor: pointer;
+    transition: transform .2s, color .2s;
+}
+
+.star-wrapper label:hover {
+    color: #1db954;
+    transform: scale(1.2);
+}
+
+.star-wrapper label:hover,
+.star-wrapper label:hover~label {
+    color: #1db954;
+}
+
+.star-wrapper input:checked~label {
+    color: #1db954;
+}
+
+form .review-section {
+    width: 100%;
+    margin: 20px 0;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+form .review-section div:last-child {
+    display: flex;
+    justify-content: flex-end;
+}
+
+form .comment-section {
+    width: 100%;
+    display: inline-block;
+}
+
+form .comment-section label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form .comment-section textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    resize: vertical;
+    background: #4e4e4e;
+    color: #fff;
+}
+
+form button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1db954;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 500ms ease;
+}
+
+form button:hover {
+    transform: scale(1.1);
+}
+
+.show-comment {
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 5px;
+    color: #aaa;
+}
+
+.show-comment div {
+    border: 1px solid #555;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.show-comment div:last-child {
+    margin-bottom: 0;
+}
+
+.show-comment div p {
+    font-weight: 300;
+    color: #fff;
+}
+
+.show-comment .author-rating {
+    display: flex;
+    justify-content: space-between;
+    border: 0;
+    border-bottom: 1px solid #555;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 40px;
+    background-color: #1e1e1e;
+    color: #aaa;
+    margin-top: 40px;
 }
