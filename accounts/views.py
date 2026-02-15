@@ -41,6 +41,7 @@ def spotify_callback(request):
     spotify_id = me["id"]
     display_name = me.get("display_name") or ""
     email = me.get("email") or ""
+    image = me.get("images", [{}])[0].get("url", "")
 
     user, _ = User.objects.get_or_create(
         username=f"spotify_{spotify_id}",
@@ -56,6 +57,7 @@ def spotify_callback(request):
     profile.spotify_id = spotify_id
     profile.display_name = display_name
     profile.email = email
+    profile.image = image
     profile.access_token = access_token
     if refresh_token:
         profile.refresh_token = refresh_token

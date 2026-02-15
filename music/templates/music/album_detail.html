@@ -1,15 +1,8 @@
+{% extends "music/base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'music/album_details.css' %}">
-    <title>{{ album.name }}</title>
-</head>
-<body>
-    <div class="album">
+{% block content %}
+    <div class="album-details">
         <div class="album-info">
             <h1>{{ album.name }}</h1>
             <p>{% for artist in album.artists %}
@@ -23,7 +16,11 @@
         </div>
         <div class="tracks">
             {% for track in tracks %}
+            <div class="track-info">
                 <p>{{track.track_number}}. {{ track.name }}</p>
+                <i class="fa-solid fa-arrow-down"></i>
+            </div>
+            <div class="track-separator">
                 <form action="{% url 'create_track_comment' album.id track.id %}" method="post">
                     {% csrf_token %}
                     <label for="track_rating_{{ track.id }}">Rating: 1-10</label>
@@ -41,6 +38,8 @@
                         </div>
                     {% endif %}
                 {% endfor %}
+            </div>
+            <hr style="border-bottom: 1px solid #333;">
             {% endfor %}
         </div>
     </div>
@@ -67,5 +66,4 @@
             <p>No comments yet.</p>
         {% endfor %}
     </div>
-</body>
-</html>
+{% endblock content %}

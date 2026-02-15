@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'music/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <title>Spotify Album Rating</title>
+</head>
+<body>
+    <header>
+        <div>
+            <span>Spotify Album Rating</span>
+        </div>
+        <div>
+            {% if request.user.is_authenticated %}
+                {% if request.user.spotifyprofile.display_name != "" %}
+                    <span>{{ request.user.spotifyprofile.display_name }}</span>
+                    <img src="{{ request.user.spotifyprofile.image }}" alt="Profile Picture">
+                {% else %}
+                    <span>{{ request.user.username }}</span>
+                    <img src="{% static 'music/default.png' %}" alt="Default Profile Picture">
+                {% endif %}
+                <a href="{% url 'logout' %}"><button class="search-button">Logout</button></a>
+            {% else %}
+                <a href="{% url 'spotify_login' %}"><button class="search-button">Spotify</button></a>
+            {% endif %}
+        </div>
+    </header>
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static 'music/index.js' %}"></script>
+</body>
+</html>

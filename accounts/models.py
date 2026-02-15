@@ -6,6 +6,7 @@ class SpotifyProfile(models.Model):
     spotify_id = models.CharField(max_length=120, unique=True)
     display_name = models.CharField(max_length=255, blank=True)
     email = models.EmailField(blank=True)
+    image = models.URLField(blank=True)
     access_token = models.TextField(blank=True)
     refresh_token = models.TextField(blank=True)
     token_expires_at = models.DateTimeField(null=True, blank=True)

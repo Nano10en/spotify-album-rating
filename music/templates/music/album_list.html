@@ -1,25 +1,7 @@
+{% extends "music/base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'music/styles.css' %}">
-    <title>Spotify Albums</title>
-</head>
-<body>
-
-<div style="margin-bottom: 16px;">
-  {% if request.user.is_authenticated %}
-    <span>Ты вошёл как: {{ request.user.spotifyprofile.display_name }}</span>
-    <a href="{% url 'logout' %}" style="margin-left: 12px; color: #1db954;">Выйти</a>
-  {% else %}
-    <a href="{% url 'spotify_login' %}" style="padding:10px 16px; background:#1db954; color:black; border-radius:8px; text-decoration:none; font-weight:700;">
-      Войти через Spotify
-    </a>
-  {% endif %}
-</div>
+{% block content %}
 
 <h1>Альбомы Spotify</h1>
 
@@ -50,5 +32,4 @@
     {% endfor %}
 </div>
 
-</body>
-</html>
+{% endblock content %}

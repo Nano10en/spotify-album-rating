@@ -1,11 +1,40 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: white;
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Outfit", sans-serif;
+}
+body {
+    width: 100%;
+        font-weight: 400;
+        font-size: 18px;
+    background-color: #121212;
+    color: #fff;
+    }
+    
+    header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     padding: 20px;
+        box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
+header div {
+    display: flex;
+    align-items: center;
+}
+
+header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+
+}
 .search-form {
     margin-bottom: 20px;
 }
@@ -26,15 +55,25 @@ body {
     color: black;
     font-weight: bold;
     cursor: pointer;
+    transition: all 500ms ease;
 }
 
-.albums {
+.search-button:hover {
+    transform: scale(1.1);
+}
+
+main {
+    width: 90%;
+    margin: 0 auto;
+}
+
+main .albums {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(6, 1fr);
     gap: 20px;
 }
 
-.album {
+main .album {
     background: #1e1e1e;
     border-radius: 10px;
     padding: 10px;
@@ -42,22 +81,85 @@ body {
     transition: transform 0.2s;
 }
 
-.album:hover {
+main .album:hover {
     transform: scale(1.05);
     cursor: pointer;
 }
 
-.album img {
+main .album img {
     width: 100%;
     border-radius: 8px;
 }
 
-.album-title {
+main .album-title {
     font-weight: bold;
     margin: 10px 0 5px;
 }
 
-.album-artist {
+main .album-artist {
     color: #aaa;
     font-size: 14px;
+}
+.album-details {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.album-details div.album-info {
+    width: 30%;
+    margin: 20px 20px 20px 60px;
+
+}
+
+.album-details div.album-info h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.album-details div.album-info p {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.album-details div.album-info img {
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 400px;
+    height: 400px;
+}
+
+.album-details div.album-info div {
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.album-details div.tracks {
+    width: 70%;
+    margin: 20px;
+}
+
+.album-details div.tracks p {
+    font-size: 1.2em;
+    padding: 15px;
+}
+
+/* .album-details div.tracks .track-separator {
+    display: none;
+} */
+
+.album-details div.tracks .track-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    transition: background-color 0.2s;
+    /* border-bottom: 1px solid #333; */
+}
+
+.album-details div.tracks .track-info:hover {
+    background-color: #333;
+    cursor: pointer;
 }
