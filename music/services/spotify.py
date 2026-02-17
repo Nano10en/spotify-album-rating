@@ -32,22 +32,33 @@ def get_access_token():
     return response.json()["access_token"]
 
 #Получение альбомов из раздела "Новые релизы"
-def get_new_releases(limit=20):
+def get_new_releases(limit=10):
     token = get_access_token()
     headers = {
         "Authorization": f"Bearer {token}"
     }
 
+    limit = int(limit)
+    limit = max(1, min(limit, 10))
+
+    params = {
+        "q": "tag:new",
+        "type": "album",
+        "market": "LV",
+        "limit": limit,
+    }
+
     response = requests.get(
-        f"{BASE_API_URL}/browse/new-releases",
+        f"{BASE_API_URL}/search",
         headers=headers,
-        params={"limit": limit}
+        params=params,
+        timeout=15,
     )
     response.raise_for_status()
     return response.json()
 
 #Реализация поиска по альбомам
-def search_albums(query, limit=20, offset=0):
+def search_albums(query, limit=10, offset=0):
     token = get_access_token()
     headers = {
         "Authorization": f"Bearer {token}"

@@ -14,10 +14,10 @@ def album_list(request):
     query = request.GET.get("q")
 
     if query:
-        data = search_albums(query=query, limit=20)
+        data = search_albums(query=query, limit=10)
         albums = data["albums"]["items"]
     else:
-        data = get_new_releases(limit=20)
+        data = get_new_releases(limit=10)
         albums = data["albums"]["items"]
 
     context = {

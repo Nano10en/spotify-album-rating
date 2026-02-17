@@ -25,35 +25,35 @@
                     {% csrf_token %}
                     <div class="review-section">
                         <div class="star-wrapper">
-                            <input type="radio" name="rating" id="r10" value="10">
-                            <label for="r10" class="fa-regular fa-heart"></label>
+                            <input type="radio" name="rating" id="r10_{{ track.id }}" value="10">
+                            <label for="r10_{{ track.id }}" class="fa-regular fa-heart"></label>
 
-                            <input type="radio" name="rating" id="r9" value="9">
-                            <label for="r9" class="fa-regular fa-heart"></label>
+                            <input type="radio" name="rating" id="r9_{{ track.id }}" value="9">
+                            <label for="r9_{{ track.id }}" class="fa-regular fa-heart"></label>
 
-                            <input type="radio" name="rating" id="r8" value="8">
-                            <label for="r8" class="fa-regular fa-heart"></label>
+                            <input type="radio" name="rating" id="r8_{{ track.id }}" value="8">
+                            <label for="r8_{{ track.id }}" class="fa-regular fa-heart"></label>
 
-                            <input type="radio" name="rating" id="r7" value="7">
-                            <label for="r7" class="fa-regular fa-heart"></label>
+                            <input type="radio" name="rating" id="r7_{{ track.id }}" value="7">
+                            <label for="r7_{{ track.id }}" class="fa-regular fa-heart"></label>
 
-                            <input type="radio" name="rating" id="r6" value="6">
-                            <label for="r6" class="fa-regular fa-heart"></label>
+                            <input type="radio" name="rating" id="r6_{{ track.id }}" value="6">
+                            <label for="r6_{{ track.id }}" class="fa-regular fa-heart"></label>
 
-                            <input type="radio" name="rating" id="r5" value="5">
-                            <label for="r5" class="fa-regular fa-heart"></label>
+                            <input type="radio" name="rating" id="r5_{{ track.id }}" value="5">
+                            <label for="r5_{{ track.id }}" class="fa-regular fa-heart"></label>
 
-                            <input type="radio" name="rating" id="r4" value="4">
-                            <label for="r4" class="fa-regular fa-heart"></label>
+                            <input type="radio" name="rating" id="r4_{{ track.id }}" value="4">
+                            <label for="r4_{{ track.id }}" class="fa-regular fa-heart"></label>
 
-                            <input type="radio" name="rating" id="r3" value="3">
-                            <label for="r3" class="fa-regular fa-heart"></label>
+                            <input type="radio" name="rating" id="r3_{{ track.id }}" value="3">
+                            <label for="r3_{{ track.id }}" class="fa-regular fa-heart"></label>
 
-                            <input type="radio" name="rating" id="r2" value="2">
-                            <label for="r2" class="fa-regular fa-heart"></label>
+                            <input type="radio" name="rating" id="r2_{{ track.id }}" value="2">
+                            <label for="r2_{{ track.id }}" class="fa-regular fa-heart"></label>
 
-                            <input type="radio" name="rating" id="r1" value="1">
-                            <label for="r1" class="fa-regular fa-heart"></label>
+                            <input type="radio" name="rating" id="r1_{{ track.id }}" value="1">
+                            <label for="r1_{{ track.id }}" class="fa-regular fa-heart"></label>
                         </div>
                         <div class="comment-section">
                             <label for="track_comment_{{ track.id }}">Comment</label>
