@@ -1,19 +1,20 @@
-# Spotyfy Album Rating
-## This project was made with Spotify API
+# Spotify Album Rating
 
-## Setup
+A web project using the Spotify API: an app to work with albums (search/view) and rate them (depending on the implemented features).
 
-### 1) Install
-python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-pip install -r requirements.txt
+## Features
+- Spotify API integration
+- Authorization / token handling (if implemented)
+- Fetch album/track data
+- Ratings / reviews (if implemented)
 
-### 2) Env
-copy .env.example .env
-# fill SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI, SECRET_KEY
-You can get keys from Spotify Developer Dashboard
+## Tech Stack
+- Python
+- Django
 
-### 3) Run
-python manage.py migrate
-python manage.py runserver
+## Installation & Run
+
+### 1) Clone
+```bash
+git clone https://github.com/Nano10en/spotify-album-rating.git
+cd spotify-album-rating
