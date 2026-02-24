@@ -18,3 +18,7 @@ A web project using the Spotify API: an app to work with albums (search/view) an
 ```bash
 git clone https://github.com/Nano10en/spotify-album-rating.git
 cd spotify-album-rating
+```
+
+## License
+MIT
