@@ -7,7 +7,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     rating = models.IntegerField(default=0)
-    album_id = models.CharField(max_length=120)
+    album_id = models.CharField(max_length=120, db_index=True)
 
     def __str__(self):
         return f"Comment by {self.author} at {self.created_at}"
@@ -19,8 +19,8 @@ class TrackComent(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     rating = models.IntegerField(default=0)
-    track_id = models.CharField(max_length=120)
-    album_id = models.CharField(max_length=120)
+    track_id = models.CharField(max_length=120, db_index=True)
+    album_id = models.CharField(max_length=120, db_index=True)
 
     def __str__(self):
         return f"Comment by {self.author} at {self.created_at}"

@@ -68,11 +68,7 @@
                     {% for track_comment in track.comments %}
                         <div>
                         <div class="author-rating">
-                            {% if track_comment.author.spotifyprofile.display_name %}
-                            <span>{{ track_comment.author.spotifyprofile.display_name }}</span>
-                            {% else %}
-                            <span>{{ track_comment.author.username }}</span>
-                            {% endif %}
+                            <span>{{ track_comment.display_author_name }}</span>
                             <span>Rating: {{ track_comment.rating }}/10</span>
                         </div>
                         <p>{{ track_comment.content }}</p>
@@ -127,11 +123,7 @@
         {% for comment in comments %}
             <div class="show-comment">
                 <div class="author-rating">
-                    {% if request.user.spotifyprofile.display_name != "" %}
-                        <span>{{ request.user.spotifyprofile.display_name }}</span>
-                    {% else %}
-                        <span>{{ request.user.username }}</span>
-                    {% endif %}
+                    <span>{{ comment.display_author_name }}</span>
                     <span>Rating: {{ comment.rating }}/10</span>
                 </div>
                 <p>{{ comment.content }}</p>

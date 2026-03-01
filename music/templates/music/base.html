@@ -16,11 +16,14 @@
         </div>
         <div>
             {% if request.user.is_authenticated %}
-                {% if request.user.spotifyprofile.display_name != "" %}
-                    <span>{{ request.user.spotifyprofile.display_name }}</span>
-                    <img src="{{ request.user.spotifyprofile.image }}" alt="Profile Picture">
+                {% if auth_display_name %}
+                    <span>{{ auth_display_name }}</span>
                 {% else %}
                     <span>{{ request.user.username }}</span>
+                {% endif %}
+                {% if auth_image %}
+                    <img src="{{ auth_image }}" alt="Profile Picture">
+                {% else %}
                     <img src="{% static 'music/default.png' %}" alt="Default Profile Picture">
                 {% endif %}
                 <a href="{% url 'logout' %}"><button class="search-button">Logout</button></a>
