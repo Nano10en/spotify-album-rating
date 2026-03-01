@@ -8,6 +8,9 @@ from .services.spotify import (
 )
 from django.contrib.auth.decorators import login_required
 
+# Dictionary for track comments, where key is track_id and value is a list of comments for that track
+from collections import defaultdict
+
 # Create your views here.
 
 def album_list(request):
@@ -29,13 +32,24 @@ def album_list(request):
 def album_detail(request, album_id):
     album = get_album_details(album_id)
     tracks_data = get_album_tracks(album_id)
+
     comments = Comment.objects.filter(album_id=album_id).order_by("-created_at")
     tracks_comments = TrackComent.objects.filter(album_id=album_id).order_by("-created_at")
+
+    comments_by_track = defaultdict(list)
+    for c in tracks_comments:
+        comments_by_track[c.track_id].append(c)
+
+    tracks = tracks_data["items"]    
+
+    for t in tracks:
+        tid = t.get("id")  # spotify track id
+        t["comments"] = comments_by_track.get(tid, [])
+
     context = {
         "album": album,
         "comments": comments,
-        "tracks": tracks_data["items"],
-        "tracks_comments": tracks_comments,
+        "tracks": tracks,
     }
     return render(request, "music/album_detail.html", context)
 

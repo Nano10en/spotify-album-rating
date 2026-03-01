@@ -149,9 +149,11 @@ main .album-artist {
     margin: 20px;
 }
 
-.album-details div.tracks p {
+.album-details div.tracks p,
+.comments .show-comment p {
     font-size: 1.2em;
     padding: 15px;
+    color: #fff;
 }
 
 .album-details div.tracks .track-info {

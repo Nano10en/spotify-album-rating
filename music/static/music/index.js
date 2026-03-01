@@ -33,4 +33,6 @@ $(".track-info").on("click", function () {
     $sep.stop(true, true).slideDown(200);
 
     $album.stop(true, true).animate({ height: 900 }, 200);
+
+    $('html, body').animate({ scrollTop: 0 }, 500);
 });
