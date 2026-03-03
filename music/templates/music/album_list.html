@@ -3,17 +3,17 @@
 
 {% block content %}
 
-<h1>Альбомы Spotify</h1>
+<h1>Albums Spotify</h1>
 
 <form method="get" class="search-form">
     <input
         type="text"
         name="q"
-        placeholder="Поиск альбома или артиста..."
+        placeholder="Search album or artist..."
         value="{{ query|default:'' }}"
         class="search-input"
     >
-    <button type="submit" class="search-button">Поиск</button>
+    <button type="submit" class="search-button">Search</button>
 </form>
 
 <div class="albums">
@@ -28,7 +28,7 @@
             </div>
         </div>
     {% empty %}
-        <p>Ничего не найдено 😢</p>
+        <p>No albums found 😢</p>
     {% endfor %}
 </div>
 
