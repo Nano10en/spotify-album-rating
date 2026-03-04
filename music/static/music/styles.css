@@ -42,19 +42,18 @@ header a.logo {
     text-decoration: none;
     color: #fff;
 }
-.search-form {
-    margin-bottom: 20px;
-}
 
 .search-input {
     padding: 10px;
-    width: 250px;
+    width: 80%;
     border-radius: 5px;
     border: none;
     font-size: 16px;
+    margin-right: 5px;
 }
 
-.search-button {
+.search-button,
+.login-button {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -65,10 +64,29 @@ header a.logo {
     transition: all 500ms ease;
 }
 
-.search-button:hover {
+.search-button:last-of-type {
+    margin-left: 5px;
+    background: #555;
+    /* color: #fff; */
+
+}
+
+.search-button:hover,
+.login-button:hover {
     transform: scale(1.1);
 }
 
+.search-container {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.search-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 main {
     width: 90%;
     margin: 0 auto;
@@ -80,6 +98,53 @@ main .albums {
     gap: 20px;
 }
 
+/* 1) Делаем дорожку slick flex-контейнером */
+.center .slick-track {
+    display: flex !important;
+    align-items: stretch;
+    /* все слайды одной высоты (по самому высокому) */
+}
+
+/* 2) Слайд должен быть "резиновым" по высоте */
+.center .slick-slide {
+    height: auto !important;
+    display: flex !important;
+    /* чтобы растянуть внутренность */
+}
+
+/* 3) Внутренний wrapper, который slick добавляет (часто <div>) — тоже растянуть */
+.center .slick-slide>div {
+    height: 100%;
+    display: flex;
+}
+
+/* 4) Твоя карточка занимает всю высоту слайда */
+.center .album {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 20px;
+    align-items: center;
+}
+
+.center .album img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+}
+
+.center .album .album-artist {
+    display: flex;
+    align-items: center;
+}
+
+.center .album .album-title {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    margin-top: 5px;
+}
 main .album {
     background: #1e1e1e;
     border-radius: 10px;
@@ -235,7 +300,7 @@ form .comment-section textarea {
     color: #fff;
 }
 
-form button {
+form button:not(.search-button) {
     margin-top: 10px;
     padding: 10px 15px;
     border: none;

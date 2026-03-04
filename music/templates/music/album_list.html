@@ -3,19 +3,37 @@
 
 {% block content %}
 
-<h1>Albums Spotify</h1>
-
-<form method="get" class="search-form">
-    <input
-        type="text"
-        name="q"
-        placeholder="Search album or artist..."
-        value="{{ query|default:'' }}"
-        class="search-input"
-    >
-    <button type="submit" class="search-button">Search</button>
-</form>
-
+<div class="search-container">
+    <form method="get" class="search-form">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search album or artist..."
+            value="{{ query|default:'' }}"
+            class="search-input"
+        >
+        <button type="submit" class="search-button">Search</button>
+        <button type="reset" class="search-button">Reset</button>
+    </form>
+</div>
+<div class="new-releases">
+    <h2>New Releases</h2>
+    <div class="center">
+        {% for album in new_releases %}
+            <div class="album" onclick="window.location.href='{% url 'album_detail' album.id %}'">
+                <img src="{{ album.images.0.url }}" alt="{{ album.name }}">
+                <div class="album-title">{{ album.name }}</div>
+                <div class="album-artist">
+                    {% for artist in album.artists %}
+                        {{ artist.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% empty %}
+            <p>No new releases found 😢</p>
+        {% endfor %}
+    </div>
+</div>
 <div class="albums">
     {% for album in albums %}
         <div class="album" onclick="window.location.href='{% url 'album_detail' album.id %}'">

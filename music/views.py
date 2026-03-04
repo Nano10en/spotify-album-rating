@@ -83,12 +83,15 @@ def album_list(request):
         data = search_albums(query=query, limit=10)
         albums = data["albums"]["items"]
     else:
-        data = get_new_releases(limit=10)
-        albums = data["albums"]["items"]
+        albums = []
+
+    new_releases = get_new_releases(limit=10)
+    new_releases_albums = new_releases["albums"]["items"]
 
     auth_display_name, auth_image = _get_user_display_data(request.user)
     context = {
         "albums": albums,
+        "new_releases": new_releases_albums,
         "query": query,
         "auth_display_name": auth_display_name,
         "auth_image": auth_image,
