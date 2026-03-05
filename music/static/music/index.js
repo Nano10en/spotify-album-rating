@@ -41,6 +41,8 @@ $('.center').slick({
     centerMode: true,
     centerPadding: '60px',
     slidesToShow: 5,
+    prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="fa-solid fa-arrow-left-long"></i></button>',
+    nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="fa-solid fa-arrow-right-long"></i></button>',
     responsive: [
         {
             breakpoint: 768,

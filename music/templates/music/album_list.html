@@ -17,7 +17,7 @@
     </form>
 </div>
 <div class="new-releases">
-    <h2>New Releases</h2>
+    <h2><i class="fa-solid fa-fire fire-icon fire-icon"></i> New Releases</h2>
     <div class="center">
         {% for album in new_releases %}
             <div class="album" onclick="window.location.href='{% url 'album_detail' album.id %}'">
