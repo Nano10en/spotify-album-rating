@@ -38,29 +38,98 @@ $(".track-info").on("click", function () {
 });
 
 $('.center').slick({
-    centerMode: true,
-    centerPadding: '60px',
+    infinite: true,
     slidesToShow: 5,
-    prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="fa-solid fa-arrow-left-long"></i></button>',
-    nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="fa-solid fa-arrow-right-long"></i></button>',
+    slidesToScroll: 1,
+    centerMode: false,
+    arrows: true,
+    prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button"><i class="fa-solid fa-arrow-left-long"></i></button>',
+    nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button"><i class="fa-solid fa-arrow-right-long"></i></button>',
     responsive: [
+        {
+            breakpoint: 992,
+            settings: {
+                slidesToShow: 4,
+                centerMode: false
+            }
+        },
         {
             breakpoint: 768,
             settings: {
+                slidesToShow: 3,
                 arrows: false,
-                centerMode: true,
-                centerPadding: '40px',
-                slidesToShow: 3
+                centerMode: false
             }
         },
         {
             breakpoint: 480,
             settings: {
+                slidesToShow: 1,
                 arrows: false,
-                centerMode: true,
-                centerPadding: '40px',
-                slidesToShow: 1
+                centerMode: false
             }
         }
     ]
+});
+
+$(document).on('click', '.close', function () {
+    $(this).closest('.message').fadeOut(200);
+});
+
+$("#search").on("click", () => {
+    $(".releases-list").hide();
+    $(".rated-albums").hide();
+});
+
+//Ajax search
+let timeout = null;
+
+$("#searchInput").on("input", function () {
+    if ($(this).val() != 0) {
+        $(".releases-list").hide()
+        $(".rated-albums").hide()
+    } else {
+        $(".releases-list").show()
+        $(".rated-albums").show()
+    }
+    const query = $(this).val().trim();
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(function () {
+        if (!query) {
+            $("#searchResults").html("");
+            return;
+        }
+
+        $.ajax({
+            url: "/search/",
+            type: "GET",
+            data: { q: query },
+            success: function (data) {
+                let html = "";
+
+                if (!data.albums.length) {
+                    html = "<p>No albums found.</p>";
+                } else {
+                    data.albums.forEach(album => {
+                        html += `
+                            <div class="album" onclick="window.location.href='${album.url}'">
+                                    ${album.image ? `<img src="${album.image}" alt="${album.name}">` : ""}
+                                    <div class="album-content">
+                                        <div class="album-title">${album.name}</div>
+                                        <div class="album-artist">${album.artist}</div>
+                                    </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                $("#searchResults").html(html);
+            },
+            error: function () {
+                console.log("Search error");
+            }
+        });
+    }, 300);
 });

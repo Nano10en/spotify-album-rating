@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="search-container">
-    <form method="get" class="search-form">
+    {% comment %} <form method="get" class="search-form">
         <input
             type="text"
             name="q"
@@ -12,21 +12,26 @@
             value="{{ query|default:'' }}"
             class="search-input"
         >
-        <button type="submit" class="search-button">Search</button>
-        <button type="reset" class="search-button">Reset</button>
-    </form>
+        <button type="button" class="search-button" id="search">Search</button>
+        <button type="button" class="search-button" id="reset">Reset</button>
+    </form> {% endcomment %}
+
+    <input type="text" id="searchInput" class="search-input" placeholder="Search albums...">
 </div>
-<div class="new-releases">
+{% comment %} New Releases {% endcomment %}
+<div class="new-releases releases-list">
     <h2><i class="fa-solid fa-fire fire-icon fire-icon"></i> New Releases</h2>
     <div class="center">
         {% for album in new_releases %}
             <div class="album" onclick="window.location.href='{% url 'album_detail' album.id %}'">
                 <img src="{{ album.images.0.url }}" alt="{{ album.name }}">
-                <div class="album-title">{{ album.name }}</div>
-                <div class="album-artist">
-                    {% for artist in album.artists %}
-                        {{ artist.name }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
+                <div class="album-content">
+                    <div class="album-title">{{ album.name }}</div>
+                    <div class="album-artist">
+                        {% for artist in album.artists %}
+                            {{ artist.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         {% empty %}
@@ -34,20 +39,45 @@
         {% endfor %}
     </div>
 </div>
-<div class="albums">
+{% comment %} Rated Albums {% endcomment %}
+<div class="new-releases rated-albums">
+    <h2><i class="fa-solid fa-clock clock-icon"></i></i> Last Rated Albums</h2>
+    <div class="center">
+        {% for album in rated_albums %}
+            <div class="album" onclick="window.location.href='{% url 'album_detail' album.id %}'">
+                <img src="{{ album.images.0.url }}" alt="{{ album.name }}">
+                <div class="album-content">
+                    <div class="album-title">{{ album.name }}</div>
+                    <div class="album-artist">
+                        {% for artist in album.artists %}
+                            {{ artist.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No new releases found 😢</p>
+        {% endfor %}
+    </div>
+</div>
+{% comment %} <div class="albums">
     {% for album in albums %}
         <div class="album" onclick="window.location.href='{% url 'album_detail' album.id %}'">
             <img src="{{ album.images.0.url }}" alt="{{ album.name }}">
-            <div class="album-title">{{ album.name }}</div>
-            <div class="album-artist">
-                {% for artist in album.artists %}
-                    {{ artist.name }}{% if not forloop.last %}, {% endif %}
-                {% endfor %}
+            <div class="album-content">
+                <div class="album-title">{{ album.name }}</div>
+                <div class="album-artist">
+                    {% for artist in album.artists %}
+                        {{ artist.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     {% empty %}
         <p>No albums found 😢</p>
     {% endfor %}
-</div>
+</div> {% endcomment %}
+
+<div id="searchResults" class="albums"></div>
 
 {% endblock content %}

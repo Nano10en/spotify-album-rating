@@ -1,4 +1,6 @@
 from collections import defaultdict
+from django.contrib import messages
+from django.http import JsonResponse
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -39,7 +41,7 @@ def _resolve_author_display_name(user):
     return profile.display_name or user.username
 
 
-def _build_album_detail_context(request, album_id, error=""):
+def _build_album_detail_context(request, album_id):
     album = get_album_details(album_id)
     tracks_data = get_album_tracks(album_id)
 
@@ -71,30 +73,60 @@ def _build_album_detail_context(request, album_id, error=""):
         "album": album,
         "comments": comments,
         "tracks": tracks,
-        "error": error,
         "auth_display_name": auth_display_name,
         "auth_image": auth_image,
     }
 
-def album_list(request):
+def rated_albums():
+    album_ids = (
+        Comment.objects
+        .order_by("-created_at")
+        .values_list("album_id", flat=True)
+        .distinct()
+    )[:10]
+
+    rated_albums = []
+    for album_id in album_ids:
+        rated_albums.append(get_album_details(album_id))
+
+    return rated_albums
+
+def ajax_album_search(request):
     query = request.GET.get("q")
 
-    if query:
-        data = search_albums(query=query, limit=10)
-        albums = data["albums"]["items"]
-    else:
-        albums = []
+    if not query:
+        return JsonResponse({"albums": []})
+    
+    data = search_albums(query=query, limit=10)
+    items = data.get("albums", {}).get("items", [])
+
+    albums = []
+    for album in items:
+        images = album.get("images", [])
+        artists = album.get("artists", [])
+
+        albums.append({
+            "id": album.get("id"),
+            "name": album.get("name"),
+            "artist": ", ".join(artist.get("name", "") for artist in artists),
+            "image": images[0]["url"] if images else "",
+            "url": f"/album/{album.get('id')}/"
+        })
+    
+    return JsonResponse({"albums": albums})
+
+def album_list(request):
+    rated_albums_list = rated_albums()
 
     new_releases = get_new_releases(limit=10)
     new_releases_albums = new_releases["albums"]["items"]
 
     auth_display_name, auth_image = _get_user_display_data(request.user)
     context = {
-        "albums": albums,
         "new_releases": new_releases_albums,
-        "query": query,
         "auth_display_name": auth_display_name,
         "auth_image": auth_image,
+        "rated_albums": rated_albums_list
     }
     return render(request, "music/album_list.html", context)
 
@@ -111,18 +143,22 @@ def create_comment(request, album_id):
         rating = request.POST.get("rating")
 
         if not comment:
-            context = _build_album_detail_context(request, album_id, error="Comment cannot be empty.")
-            return render(request, "music/album_detail.html", context)
+            messages.error(request, "Comment cannot be empty.")
+            return redirect("album_detail", album_id=album_id)
 
         try:
             rating = int(rating)
         except (ValueError, TypeError):
-            context = _build_album_detail_context(request, album_id, error="Rating must be an integer.")
-            return render(request, "music/album_detail.html", context)
+            messages.error(request, "Rating must be an integer.")
+            return redirect("album_detail", album_id=album_id)
 
         if rating < 1 or rating > 10:
-            context = _build_album_detail_context(request, album_id, error="Rating must be between 1 and 10.")
-            return render(request, "music/album_detail.html", context)
+            messages.error(request, "Rating must be between 1 and 10.")
+            return redirect("album_detail", album_id=album_id)
+        
+        if Comment.objects.filter(author=request.user, album_id=album_id).exists():
+            messages.error(request, "You have already left a comment for this album.")
+            return redirect("album_detail", album_id=album_id)
 
         Comment.objects.create(
             author=request.user,
@@ -130,6 +166,8 @@ def create_comment(request, album_id):
             content=comment,
             rating=rating,
         )
+
+        messages.success(request, "Comment added successfully.")
 
     return redirect("album_detail", album_id=album_id)
 
@@ -141,18 +179,22 @@ def create_track_comment(request, album_id, track_id):
         rating = request.POST.get("rating")
 
         if not comment:
-            context = _build_album_detail_context(request, album_id, error="Comment cannot be empty.")
-            return render(request, "music/album_detail.html", context)
+            messages.error(request, "Comment cannot be empty.")
+            return redirect("album_detail", album_id=album_id)
 
         try:
             rating = int(rating)
         except (ValueError, TypeError):
-            context = _build_album_detail_context(request, album_id, error="Rating must be an integer.")
-            return render(request, "music/album_detail.html", context)
+            messages.error(request, "Rating must be an integer.")
+            return redirect("album_detail", album_id=album_id)
 
         if rating < 1 or rating > 10:
-            context = _build_album_detail_context(request, album_id, error="Rating must be between 1 and 10.")
-            return render(request, "music/album_detail.html", context)
+            messages.error(request, "Rating must be between 1 and 10.")
+            return redirect("album_detail", album_id=album_id)
+        
+        if TrackComent.objects.filter(author=request.user, track_id=track_id, album_id=album_id).exists():
+            messages.error(request, "You have already left a comment for this track.")
+            return redirect("album_detail", album_id=album_id)
 
         TrackComent.objects.create(
             author=request.user,
@@ -161,5 +203,7 @@ def create_track_comment(request, album_id, track_id):
             content=comment,
             rating=rating,
         )
+
+        messages.success(request, "Comment added successfully.")
 
     return redirect("album_detail", album_id=album_id)

@@ -2,6 +2,14 @@
 {% load static %}
 
 {% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                <p>{{ message }}</p>
+                <i class="fa-solid fa-xmark close"></i>
+            </div>
+        {% endfor %}
+    {% endif %}
     <div class="album-details">
         <div class="album-info">
             <h1>{{ album.name }}</h1>
@@ -120,16 +128,18 @@
     </div>
     <div class="comments">
         <h2>Comments</h2>
-        {% for comment in comments %}
-            <div class="show-comment">
+        <div class="show-comment">
+            {% for comment in comments %}
+            <div>
                 <div class="author-rating">
                     <span>{{ comment.display_author_name }}</span>
                     <span>Rating: {{ comment.rating }}/10</span>
                 </div>
                 <p>{{ comment.content }}</p>
             </div>
-        {% empty %}
-            <p>No comments yet.</p>
-        {% endfor %}
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}

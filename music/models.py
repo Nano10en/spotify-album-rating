@@ -9,6 +9,11 @@ class Comment(models.Model):
     rating = models.IntegerField(default=0)
     album_id = models.CharField(max_length=120, db_index=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['author', 'album_id'], name='unique_user_album_comment')
+        ]
+
     def __str__(self):
         return f"Comment by {self.author} at {self.created_at}"
  
@@ -21,6 +26,11 @@ class TrackComent(models.Model):
     rating = models.IntegerField(default=0)
     track_id = models.CharField(max_length=120, db_index=True)
     album_id = models.CharField(max_length=120, db_index=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['author', 'track_id', 'album_id'], name='unique_user_track_album_comment')
+        ]
 
     def __str__(self):
         return f"Comment by {self.author} at {self.created_at}"

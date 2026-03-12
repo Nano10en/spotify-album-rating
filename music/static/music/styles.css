@@ -1,111 +1,135 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Outfit", sans-serif;
+}
+
+:root {
+    --bg: #121212;
+    --surface: #1e1e1e;
+    --surface-2: #333;
+    --surface-3: #4e4e4e;
+    --text: #fff;
+    --muted: #aaa;
+    --accent: #1db954;
+    --radius: 10px;
+    --transition: 0.3s ease;
 }
 body {
     width: 100%;
-        font-weight: 400;
+    font-family: "Outfit", sans-serif;
         font-size: 18px;
-    background-color: #121212;
-    color: #fff;
+    font-weight: 400;
+    background-color: var(--bg);
+        color: var(--text);
     }
-    
-    header {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+/* HEADER */
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 20px;
-        box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    box-shadow:
+            rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+            rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+            rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
 header div {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 header img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    margin: 0 10px;
-
 }
 
 header a.logo {
     font-size: 1.2em;
-    font-weight: bold;
+    font-weight: 700;
     text-decoration: none;
-    color: #fff;
-}
+    color: var(--text);
+    }
+    
+    /* SEARCH */
+    .search-container {
+        width: 100%;
+        margin: 20px 0;
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
 .search-input {
+    width: min(800px, 80%);
     padding: 10px;
-    width: 80%;
-    border-radius: 5px;
     border: none;
+    border-radius: 5px;
     font-size: 16px;
-    margin-right: 5px;
+    transition: 0.2s ease;
+    }
+    
+    .search-input:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px var(--accent), 0 0 10px rgba(77, 166, 255, 0.4);
 }
 
 .search-button,
-.login-button {
+.login-button,
+form button:not(.search-button) {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    background-color: #1db954;
-    color: black;
-    font-weight: bold;
+    background-color: var(--accent);
+        color: #000;
+        font-weight: 700;
     cursor: pointer;
-    transition: all 500ms ease;
+    transition: transform var(--transition), opacity var(--transition);
 }
 
 .search-button:last-of-type {
-    margin-left: 5px;
     background: #555;
-    /* color: #fff; */
-
 }
 
 .search-button:hover,
-.login-button:hover {
-    transform: scale(1.1);
+.login-button:hover,
+form button:hover {
+    transform: scale(1.05);
 }
 
-.search-container {
-    width: 100%;
-    margin: 20px 0;
-}
-
-.search-form {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/* MAIN */
 main {
-    width: 90%;
+    width: min(1400px, 90%);
     margin: 0 auto;
 }
 
-main .albums {
+.albums {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
+    width: 100%;
+        margin: 0 auto;
 }
 
+/* RELEASES */
 .new-releases {
-    padding: 20px;
-    background: #121212;
+    position: relative;
+        margin-bottom: 40px;
+        padding: 20px 28px;
+        background: var(--bg);
     border-radius: 12px;
     box-shadow:
-        inset 2px 2px 6px rgba(0, 0, 0, .75),
-        inset -2px -2px 6px rgba(255, 255, 255, .06);
-    margin-bottom: 40px;
+        inset 2px 2px 6px rgba(0, 0, 0, 0.75),
+            inset -2px -2px 6px rgba(255, 255, 255, 0.06);
 }
 
 .new-releases h2 {
@@ -114,183 +138,230 @@ main .albums {
 
 .fire-icon {
     font-size: 32px;
-
     background: linear-gradient(180deg, #fff2b8 0%, #ffb300 30%, #ff5a00 60%, #d40000 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-
     filter: drop-shadow(0 0 6px rgba(255, 140, 0, 0.55));
 }
-/* 1) Делаем дорожку slick flex-контейнером */
-.center .slick-track {
+
+.clock-icon {
+    font-size: 32px;
+    background: linear-gradient(180deg, #e8f7ff 0%, #9fdcff 35%, #4da6ff 65%, #1e5eff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 6px rgba(77, 166, 255, 0.55));
+}
+
+/* SLICK */
+.new-releases .slick-list {
+    margin: 0 -15px !important;
+    overflow: hidden;
+}
+
+.new-releases .slick-track {
     display: flex !important;
     align-items: stretch;
-        
-    /* все слайды одной высоты (по самому высокому) */
+        gap: 10px;
+        margin: 10px auto;
 }
 
-/* 2) Слайд должен быть "резиновым" по высоте */
- .center .slick-slide {
+.new-releases .slick-slide {
     height: auto !important;
-    display: flex !important;
-    /* чтобы растянуть внутренность */
 }
 
-/* 3) Внутренний wrapper, который slick добавляет (часто <div>) — тоже растянуть */
- .center .slick-slide>div {
+.new-releases .slick-slide>div {
     height: 100%;
-    display: flex;
+    box-sizing: border-box;
 }
 
-/* 4) Твоя карточка занимает всю высоту слайда */
-.center .album {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin: 10px 20px;
-    align-items: center;
-}
-
-.center .album img {
-    width: 100%;
-    display: block;
-    border-radius: 8px;
-}
-
-.center .album .album-artist {
-    display: flex;
-    align-items: center;
-}
-
-.center .album .album-title {
-    display: flex;
-    align-items: center;
-    margin: 0;
-    margin-top: 5px;
-}
 .slick-arrow {
     position: absolute;
-    top: 0;
-    z-index: 1;
-    height: 100%;
-    width: 50px;
-    background: rgba(0, 0, 0, 0.9);
+    top: 50%;
+        transform: translateY(-50%);
+        z-index: 3;
+        width: 42px;
+        height: 42px;
     border: none;
-    transition: all 0.5s ease;
-}
-
-.slick-arrow:hover {
-    background: rgba(0, 0, 0, 1);
-    cursor: pointer;
+    border-radius: 50%;
+        background: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+            align-items: center;
+            justify-content: center;
 }
 
 .slick-arrow i {
-    color: #fff;
-    font-size: 20px;
+    font-size: 18px;
+        transition: transform 0.2s ease;
+    }
+    
+    .slick-arrow:hover i {
+        transform: scale(1.15);
 }
 
 .slick-prev {
-    left: 0;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    left: -6px;
 }
 
 .slick-next {
-    right: 0;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    right: -6px;
 }
-main .album {
-    background: #1e1e1e;
-    border-radius: 10px;
+/* ALBUM CARD — ОДИН СТИЛЬ ВЕЗДЕ */
+.album {
+    width: 100%;
+    height: 100%;
+    /* margin: 0; */
     padding: 10px;
-    text-align: center;
-    transition: transform 0.2s;
+    display: flex;
+        flex-direction: column;
+        background: linear-gradient(180deg, #1f1f1f 0%, #191919 100%);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 14px;
+        text-align: left;
+        overflow: hidden;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-main .album:hover {
-    transform: scale(1.05);
+.album:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    border-color: rgba(255, 255, 255, 0.08);
     cursor: pointer;
 }
 
-main .album img {
+.album-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 2px;
+}
+
+.album img {
     width: 100%;
-    border-radius: 8px;
+    aspect-ratio: 1 / 1;
+        object-fit: cover;
+        display: block;
+        border-radius: 10px;
+        margin-bottom: 10px;
 }
 
-main .album-title {
-    font-weight: bold;
-    margin: 10px 0 5px;
+.album-title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #fff;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-main .album-artist {
-    color: #aaa;
-    font-size: 14px;
+.album-artist {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #a7a7a7;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
+/* DETAILS */
 .album-details {
     width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    height: auto;
+    gap: 30px;
 }
 
-.album-details div.album-info {
+.album-details .album-info {
     width: 30%;
-    margin: 20px 20px 20px 60px;
-
+    margin: 20px;
 }
 
-.album-details div.album-info h1 {
-    font-size: 2em;
+.album-details .album-info h1 {
     margin-bottom: 10px;
+    font-size: 2em;
 }
 
-.album-details div.album-info p {
-    font-size: 1.2em;
+.album-details .album-info p {
     margin-bottom: 5px;
+    font-size: 1.2em;
 }
 
-.album-details div.album-info img {
-    margin-top: 20px;
-    border-radius: 10px;
+.album-details .album-info img {
     width: 400px;
     height: 400px;
+    margin-top: 20px;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
-.album-details div.album-info div {
+.album-details .album-info div {
     width: 400px;
     display: flex;
     justify-content: space-between;
 }
 
-.album-details div.tracks {
+.album-details .tracks {
     width: 70%;
     margin: 20px;
 }
 
-.album-details div.tracks p,
+.album-details .tracks p,
 .comments .show-comment p {
-    font-size: 1.2em;
     padding: 15px;
-    color: #fff;
+    font-size: 1.2em;
+    color: var(--text);
 }
 
-.album-details div.tracks .track-info {
+.album-details .tracks .track-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    transition: background-color 0.2s;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--surface-2);
+        transition: background-color 0.2s ease;
+    }
+    
+    .album-details .tracks .track-info:hover {
+        background-color: var(--surface-2);
+        cursor: pointer;
+    }
+    
+    /* ERRORS */
+    .message {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin: 10px auto;
+        padding: 20px 25px;
+        font-size: 0.8em;
+        border-radius: 5px;
+        font-weight: 400;
+    }
+    
+    .error {
+        background: #d65a5a;
+        color: #760a0a;
+    }
+    
+    .success {
+        background: #1db954;
+        color: #056828;
+    }
+    
+    .message i {
+        transition: all 400ms ease;
 }
 
-.album-details div.tracks .track-info:hover {
-    background-color: #333;
+.message i:hover {
     cursor: pointer;
+    transform: scale(1.2);
 }
+/* STARS */
 .star-wrapper {
     direction: rtl;
     display: inline-flex;
@@ -304,31 +375,28 @@ main .album-artist {
 
 .star-wrapper label {
     font-size: 1.5em;
-    color: #fff;
+    color: var(--text);
     cursor: pointer;
-    transition: transform .2s, color .2s;
-}
-
-.star-wrapper label:hover {
-    color: #1db954;
-    transform: scale(1.2);
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .star-wrapper label:hover,
-.star-wrapper label:hover~label {
-    color: #1db954;
-}
-
+.star-wrapper label:hover~label,
 .star-wrapper input:checked~label {
-    color: #1db954;
+    color: var(--accent);
 }
 
+.star-wrapper label:hover {
+    transform: scale(1.2);
+}
+
+/* FORM */
 form .review-section {
     width: 100%;
     margin: 20px 0;
-    border: 1px solid #333;
-    border-radius: 5px;
     padding: 10px;
+        border: 1px solid var(--surface-2);
+    border-radius: 5px;
 }
 
 form .review-section div:last-child {
@@ -349,43 +417,28 @@ form .comment-section label {
 form .comment-section textarea {
     width: 100%;
     padding: 10px;
-    border-radius: 5px;
     border: none;
-    font-size: 16px;
+    border-radius: 5px;
     resize: vertical;
-    background: #4e4e4e;
-    color: #fff;
+    font-size: 16px;
+    color: var(--text);
+        background: var(--surface-3);
 }
 
-form button:not(.search-button) {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #1db954;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 500ms ease;
-}
-
-form button:hover {
-    transform: scale(1.1);
-}
-
+/* COMMENTS */
 .show-comment {
     margin-top: 10px;
     padding: 20px;
-    background-color: #333;
     border-radius: 5px;
-    color: #aaa;
+    color: var(--muted);
+        background-color: var(--surface-2);
 }
 
 .show-comment div {
-    border: 1px solid #555;
-    padding: 10px;
-    border-radius: 5px;
     margin-bottom: 10px;
+        padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
 }
 
 .show-comment div:last-child {
@@ -394,7 +447,7 @@ form button:hover {
 
 .show-comment div p {
     font-weight: 300;
-    color: #fff;
+    color: var(--text);
 }
 
 .show-comment .author-rating {
@@ -404,11 +457,12 @@ form button:hover {
     border-bottom: 1px solid #555;
 }
 
+/* FOOTER */
 footer {
     width: 100%;
-    text-align: center;
-    padding: 40px;
-    background-color: #1e1e1e;
-    color: #aaa;
     margin-top: 40px;
+        padding: 40px;
+    text-align: center;
+    background-color: var(--surface);
+        color: var(--muted);
 }
