@@ -19,14 +19,16 @@
     --radius: 10px;
     --transition: 0.3s ease;
 }
+
 body {
     width: 100%;
     font-family: "Outfit", sans-serif;
-        font-size: 18px;
+    font-size: 18px;
     font-weight: 400;
     background-color: var(--bg);
-        color: var(--text);
-    }
+    color: var(--text);
+}
+
 /* HEADER */
 header {
     width: 100%;
@@ -35,9 +37,9 @@ header {
     align-items: center;
     padding: 20px;
     box-shadow:
-            rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
-            rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-            rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+        rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
 header div {
@@ -57,17 +59,17 @@ header a.logo {
     font-weight: 700;
     text-decoration: none;
     color: var(--text);
-    }
-    
-    /* SEARCH */
-    .search-container {
-        width: 100%;
-        margin: 20px 0;
-        margin-bottom: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+}
+
+/* SEARCH */
+.search-container {
+    width: 100%;
+    margin: 20px 0;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .search-input {
     width: min(800px, 80%);
@@ -76,11 +78,11 @@ header a.logo {
     border-radius: 5px;
     font-size: 16px;
     transition: 0.2s ease;
-    }
-    
-    .search-input:focus {
-        outline: none;
-        box-shadow: 0 0 0 4px var(--accent), 0 0 10px rgba(77, 166, 255, 0.4);
+}
+
+.search-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--accent), 0 0 10px rgba(77, 166, 255, 0.4);
 }
 
 .search-button,
@@ -90,8 +92,8 @@ form button:not(.search-button) {
     border: none;
     border-radius: 5px;
     background-color: var(--accent);
-        color: #000;
-        font-weight: 700;
+    color: #000;
+    font-weight: 700;
     cursor: pointer;
     transition: transform var(--transition), opacity var(--transition);
 }
@@ -114,22 +116,51 @@ main {
 
 .albums {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     width: 100%;
-        margin: 0 auto;
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    .albums {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 720px) {
+    .albums {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 720px) and (min-width: 530px) {
+    .albums {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 530px) and (min-width: 350px) {
+    .albums {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 350px) {
+    .albums {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 /* RELEASES */
 .new-releases {
     position: relative;
-        margin-bottom: 40px;
-        padding: 20px 28px;
-        background: var(--bg);
+    margin-bottom: 40px;
+    padding: 20px 28px;
+    background: var(--bg);
     border-radius: 12px;
     box-shadow:
         inset 2px 2px 6px rgba(0, 0, 0, 0.75),
-            inset -2px -2px 6px rgba(255, 255, 255, 0.06);
+        inset -2px -2px 6px rgba(255, 255, 255, 0.06);
 }
 
 .new-releases h2 {
@@ -163,8 +194,8 @@ main {
 .new-releases .slick-track {
     display: flex !important;
     align-items: stretch;
-        gap: 10px;
-        margin: 10px auto;
+    gap: 10px;
+    margin: 10px auto;
 }
 
 .new-releases .slick-slide {
@@ -179,27 +210,27 @@ main {
 .slick-arrow {
     position: absolute;
     top: 50%;
-        transform: translateY(-50%);
-        z-index: 3;
-        width: 42px;
-        height: 42px;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 42px;
+    height: 42px;
     border: none;
     border-radius: 50%;
-        background: rgba(0, 0, 0, 0.85);
-        color: #fff;
-        cursor: pointer;
-        display: flex;
-            align-items: center;
-            justify-content: center;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .slick-arrow i {
     font-size: 18px;
-        transition: transform 0.2s ease;
-    }
-    
-    .slick-arrow:hover i {
-        transform: scale(1.15);
+    transition: transform 0.2s ease;
+}
+
+.slick-arrow:hover i {
+    transform: scale(1.15);
 }
 
 .slick-prev {
@@ -209,6 +240,7 @@ main {
 .slick-next {
     right: -6px;
 }
+
 /* ALBUM CARD — ОДИН СТИЛЬ ВЕЗДЕ */
 .album {
     width: 100%;
@@ -216,13 +248,13 @@ main {
     /* margin: 0; */
     padding: 10px;
     display: flex;
-        flex-direction: column;
-        background: linear-gradient(180deg, #1f1f1f 0%, #191919 100%);
-        border: 1px solid rgba(255, 255, 255, 0.04);
-        border-radius: 14px;
-        text-align: left;
-        overflow: hidden;
-        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    flex-direction: column;
+    background: linear-gradient(180deg, #1f1f1f 0%, #191919 100%);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    text-align: left;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .album:hover {
@@ -242,10 +274,10 @@ main {
 .album img {
     width: 100%;
     aspect-ratio: 1 / 1;
-        object-fit: cover;
-        display: block;
-        border-radius: 10px;
-        margin-bottom: 10px;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .album-title {
@@ -268,17 +300,44 @@ main {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
 /* DETAILS */
 .album-details {
     width: 100%;
     display: flex;
-    justify-content: space-between;
     gap: 30px;
 }
 
+@media (min-width: 1300px) {
+    .album-details {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 1299px) {
+    .album-details {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 .album-details .album-info {
-    width: 30%;
+    width: min-content;
     margin: 20px;
+}
+
+@media (min-width: 500px) {
+    .album-details .album-info {
+        width: min-content;
+        margin: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .album-details .album-info {
+        width: 100%;
+        margin: 20px;
+    }
 }
 
 .album-details .album-info h1 {
@@ -299,15 +358,49 @@ main {
     object-fit: cover;
 }
 
+@media (min-width: 500px) {
+    .album-details .album-info img {
+        width: 400px;
+        height: 400px;
+    }
+}
+
+@media (max-width: 499px) {
+    .album-details .album-info img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+}
+
 .album-details .album-info div {
-    width: 400px;
     display: flex;
     justify-content: space-between;
 }
 
-.album-details .tracks {
+@media (max-width: 350px) {
+    .album-details .album-info div span {
+        font-size: 0.8em;
+    }
+}
+
+/* .album-details .tracks {
     width: 70%;
     margin: 20px;
+} */
+
+@media (min-width: 1300px) {
+    .album-details .tracks {
+        width: 70%;
+        margin: 20px;
+    }
+}
+
+@media (max-width: 1299px) {
+    .album-details .tracks {
+        width: 100%;
+        margin: 20px;
+    }
 }
 
 .album-details .tracks p,
@@ -323,44 +416,45 @@ main {
     align-items: center;
     padding: 15px;
     border-bottom: 1px solid var(--surface-2);
-        transition: background-color 0.2s ease;
-    }
-    
-    .album-details .tracks .track-info:hover {
-        background-color: var(--surface-2);
-        cursor: pointer;
-    }
-    
-    /* ERRORS */
-    .message {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin: 10px auto;
-        padding: 20px 25px;
-        font-size: 0.8em;
-        border-radius: 5px;
-        font-weight: 400;
-    }
-    
-    .error {
-        background: #d65a5a;
-        color: #760a0a;
-    }
-    
-    .success {
-        background: #1db954;
-        color: #056828;
-    }
-    
-    .message i {
-        transition: all 400ms ease;
+    transition: background-color 0.2s ease;
+}
+
+.album-details .tracks .track-info:hover {
+    background-color: var(--surface-2);
+    cursor: pointer;
+}
+
+/* ERRORS */
+.message {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px auto;
+    padding: 20px 25px;
+    font-size: 0.8em;
+    border-radius: 5px;
+    font-weight: 400;
+}
+
+.error {
+    background: #d65a5a;
+    color: #760a0a;
+}
+
+.success {
+    background: #1db954;
+    color: #056828;
+}
+
+.message i {
+    transition: all 400ms ease;
 }
 
 .message i:hover {
     cursor: pointer;
     transform: scale(1.2);
 }
+
 /* STARS */
 .star-wrapper {
     direction: rtl;
@@ -368,6 +462,12 @@ main {
     gap: 4px;
     margin: 10px;
 }
+
+/* @media (max-width: 530px) {
+    .star-wrapper {
+        width: 100%;
+    }
+} */
 
 .star-wrapper input {
     display: none;
@@ -380,6 +480,24 @@ main {
     transition: transform 0.2s ease, color 0.2s ease;
 }
 
+@media (max-width: 530px) and (min-width: 400px) {
+    .star-wrapper label {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 400px) and (min-width: 375px) {
+    .star-wrapper label {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 375px) {
+    .star-wrapper label {
+        font-size: 0.7em;
+    }
+}
+
 .star-wrapper label:hover,
 .star-wrapper label:hover~label,
 .star-wrapper input:checked~label {
@@ -390,12 +508,23 @@ main {
     transform: scale(1.2);
 }
 
+.comments-album {
+    margin-top: 50px;
+    margin-bottom: 40px;
+    padding: 20px 28px;
+    background: var(--bg);
+    border-radius: 12px;
+    box-shadow:
+        inset 2px 2px 6px rgba(0, 0, 0, 0.75),
+        inset -2px -2px 6px rgba(255, 255, 255, 0.06);
+}
+
 /* FORM */
 form .review-section {
     width: 100%;
     margin: 20px 0;
     padding: 10px;
-        border: 1px solid var(--surface-2);
+    border: 1px solid var(--surface-2);
     border-radius: 5px;
 }
 
@@ -422,7 +551,7 @@ form .comment-section textarea {
     resize: vertical;
     font-size: 16px;
     color: var(--text);
-        background: var(--surface-3);
+    background: var(--surface-3);
 }
 
 /* COMMENTS */
@@ -431,12 +560,12 @@ form .comment-section textarea {
     padding: 20px;
     border-radius: 5px;
     color: var(--muted);
-        background-color: var(--surface-2);
+    background-color: var(--surface-2);
 }
 
 .show-comment div {
     margin-bottom: 10px;
-        padding: 10px;
+    padding: 10px;
     border: 1px solid #555;
     border-radius: 5px;
 }
@@ -461,8 +590,8 @@ form .comment-section textarea {
 footer {
     width: 100%;
     margin-top: 40px;
-        padding: 40px;
+    padding: 40px;
     text-align: center;
     background-color: var(--surface);
-        color: var(--muted);
+    color: var(--muted);
 }

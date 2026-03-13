@@ -89,57 +89,59 @@
             {% endfor %}
         </div>
     </div>
-
-    <div class="review">
-        <form action="{% url 'create_comment' album.id %}" method="post">
-            {% csrf_token %}
-            <div class="review-section">
-                <div class="star-wrapper">
-                    <input type="radio" name="rating" id="r10_{{ album.id }}" value="10">
-                    <label for="r10_{{ album.id }}" class="fa-regular fa-heart"></label>
-                    <input type="radio" name="rating" id="r9_{{ album.id }}" value="9">
-                    <label for="r9_{{ album.id }}" class="fa-regular fa-heart"></label>
-                    <input type="radio" name="rating" id="r8_{{ album.id }}" value="8">
-                    <label for="r8_{{ album.id }}" class="fa-regular fa-heart"></label>
-                    <input type="radio" name="rating" id="r7_{{ album.id }}" value="7">
-                    <label for="r7_{{ album.id }}" class="fa-regular fa-heart"></label>
-                    <input type="radio" name="rating" id="r6_{{ album.id }}" value="6">
-                    <label for="r6_{{ album.id }}" class="fa-regular fa-heart"></label>
-                    <input type="radio" name="rating" id="r5_{{ album.id }}" value="5">
-                    <label for="r5_{{ album.id }}" class="fa-regular fa-heart"></label>
-                    <input type="radio" name="rating" id="r4_{{ album.id }}" value="4">
-                    <label for="r4_{{ album.id }}" class="fa-regular fa-heart"></label>
-                    <input type="radio" name="rating" id="r3_{{ album.id }}" value="3">
-                    <label for="r3_{{ album.id }}" class="fa-regular fa-heart"></label>
-                    <input type="radio" name="rating" id="r2_{{ album.id }}" value="2">
-                    <label for="r2_{{ album.id }}" class="fa-regular fa-heart"></label>
-                    <input type="radio" name="rating" id="r1_{{ album.id }}" value="1">
-                    <label for="r1_{{ album.id }}" class="fa-regular fa-heart"></label>
+    <div class="comments-album">
+        <h2>Comments for Album</h2>
+        <div class="review">
+            <form action="{% url 'create_comment' album.id %}" method="post">
+                {% csrf_token %}
+                <div class="review-section">
+                    <div class="star-wrapper">
+                        <input type="radio" name="rating" id="r10_{{ album.id }}" value="10">
+                        <label for="r10_{{ album.id }}" class="fa-regular fa-heart"></label>
+                        <input type="radio" name="rating" id="r9_{{ album.id }}" value="9">
+                        <label for="r9_{{ album.id }}" class="fa-regular fa-heart"></label>
+                        <input type="radio" name="rating" id="r8_{{ album.id }}" value="8">
+                        <label for="r8_{{ album.id }}" class="fa-regular fa-heart"></label>
+                        <input type="radio" name="rating" id="r7_{{ album.id }}" value="7">
+                        <label for="r7_{{ album.id }}" class="fa-regular fa-heart"></label>
+                        <input type="radio" name="rating" id="r6_{{ album.id }}" value="6">
+                        <label for="r6_{{ album.id }}" class="fa-regular fa-heart"></label>
+                        <input type="radio" name="rating" id="r5_{{ album.id }}" value="5">
+                        <label for="r5_{{ album.id }}" class="fa-regular fa-heart"></label>
+                        <input type="radio" name="rating" id="r4_{{ album.id }}" value="4">
+                        <label for="r4_{{ album.id }}" class="fa-regular fa-heart"></label>
+                        <input type="radio" name="rating" id="r3_{{ album.id }}" value="3">
+                        <label for="r3_{{ album.id }}" class="fa-regular fa-heart"></label>
+                        <input type="radio" name="rating" id="r2_{{ album.id }}" value="2">
+                        <label for="r2_{{ album.id }}" class="fa-regular fa-heart"></label>
+                        <input type="radio" name="rating" id="r1_{{ album.id }}" value="1">
+                        <label for="r1_{{ album.id }}" class="fa-regular fa-heart"></label>
+                    </div>
+                    <div class="comment-section">
+                        <label for="track_comment_{{ album.id }}">Comment</label>
+                        <textarea type="text" id="track_comment_{{ album.id }}" name="comment" required></textarea>
+                    </div>
+                    <div class="button-section">
+                        <button type="submit">Submit Rating</button>
+                    </div>
                 </div>
-                <div class="comment-section">
-                    <label for="track_comment_{{ album.id }}">Comment</label>
-                    <textarea type="text" id="track_comment_{{ album.id }}" name="comment" required></textarea>
+            </form>
+        </div>
+        <div class="comments">
+            {% comment %} <h2>Comments</h2> {% endcomment %}
+            <div class="show-comment">
+                {% for comment in comments %}
+                <div>
+                    <div class="author-rating">
+                        <span>{{ comment.display_author_name }}</span>
+                        <span>Rating: {{ comment.rating }}/10</span>
+                    </div>
+                    <p>{{ comment.content }}</p>
                 </div>
-                <div class="button-section">
-                    <button type="submit">Submit Rating</button>
-                </div>
+                {% empty %}
+                    <p>No comments yet.</p>
+                {% endfor %}
             </div>
-        </form>
-    </div>
-    <div class="comments">
-        <h2>Comments</h2>
-        <div class="show-comment">
-            {% for comment in comments %}
-            <div>
-                <div class="author-rating">
-                    <span>{{ comment.display_author_name }}</span>
-                    <span>Rating: {{ comment.rating }}/10</span>
-                </div>
-                <p>{{ comment.content }}</p>
-            </div>
-            {% empty %}
-                <p>No comments yet.</p>
-            {% endfor %}
         </div>
     </div>
 {% endblock content %}

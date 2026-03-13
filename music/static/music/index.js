@@ -32,9 +32,27 @@ $(".track-info").on("click", function () {
     $(".track-info").not($clicked).stop(true, true).fadeOut(200);
     $sep.stop(true, true).slideDown(200);
 
-    $album.stop(true, true).animate({ height: 900 }, 200);
+    if ($(".album-details").css("justify-content") === "space-between") {
+        $album.stop(true, true).animate({ height: 900 }, 200);
+    } else {
+        $album.stop(true, true).animate({ height: natural }, 200);
+    }
 
     $('html, body').animate({ scrollTop: 0 }, 500);
+});
+
+$(window).on("resize", function () {
+    const $album = $(".album-details");
+    const natural = $album.css("height", "auto").outerHeight();
+    const hasOpenSeparator = $(".track-separator:visible").length > 0;
+
+    if (!$album.length || !hasOpenSeparator) return;
+
+    if ($(window).width() >= 1300) {
+        $album.stop(true, true).animate({ height: 900 }, 200);
+    } else {
+        $album.stop(true, true).animate({ height: natural }, 200);
+    }
 });
 
 $('.center').slick({
